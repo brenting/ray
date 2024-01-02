@@ -699,7 +699,7 @@ def _check_info(info, base_env=False, agent_ids=None):
                         "Your step function must return infos that are a dict. "
                         f"instead was a {type(inf)}: element: {inf}"
                     )
-                if not (agent_id in agent_ids or agent_id == "__all__"):
+                if not (agent_id in agent_ids or agent_id == "__common__"):
                     error = (
                         f"Your dones dictionary must have agent ids that belong to "
                         f"the environment. Agent_ids recieved from "
@@ -761,7 +761,7 @@ def _check_if_element_multi_agent_dict(env, element, function_string, base_env=F
             )
         raise ValueError(error)
     agent_ids: Set = copy(env.get_agent_ids())
-    agent_ids.add("__all__")
+    agent_ids.update(["__all__", "__common__"])
 
     if not all(k in agent_ids for k in element):
         if base_env:
